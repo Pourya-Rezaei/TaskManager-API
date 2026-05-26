@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
 using Serilog;
 using Scalar.AspNetCore;
+using TaskManager.API.Middleware;
 using TaskManager.Infrastructure.Data;
 using TaskManager.Infrastructure.Repositories;
 using TaskManager.Domain.Interfaces;
@@ -80,6 +81,10 @@ try
         await DataSeeder.SeedAsync(db);
     }
 
+    // ─── Middleware Error Pipeline ───────────────────────────────
+    app.UseMiddleware<ExceptionHandlingMiddleware>();
+    
+    
     // ─── Middleware Pipeline ───────────────────────────────
     app.UseSerilogRequestLogging();
 
