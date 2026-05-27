@@ -3,19 +3,19 @@ FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
 # کپی فایل‌های پروژه
-COPY ["src/TaskManager.API/TaskManager.API.csproj", "src/TaskManager.API/"]
-COPY ["src/TaskManager.Application/TaskManager.Application.csproj", "src/TaskManager.Application/"]
-COPY ["src/TaskManager.Domain/TaskManager.Domain.csproj", "src/TaskManager.Domain/"]
-COPY ["src/TaskManager.Infrastructure/TaskManager.Infrastructure.csproj", "src/TaskManager.Infrastructure/"]
+COPY ["backend/src/TaskManager.API/TaskManager.API.csproj", "backend/src/TaskManager.API/"]
+COPY ["backend/src/TaskManager.Application/TaskManager.Application.csproj", "backend/src/TaskManager.Application/"]
+COPY ["backend/src/TaskManager.Domain/TaskManager.Domain.csproj", "backend/src/TaskManager.Domain/"]
+COPY ["backend/src/TaskManager.Infrastructure/TaskManager.Infrastructure.csproj", "backend/src/TaskManager.Infrastructure/"]
 
 # Restore پکیج‌ها
-RUN dotnet restore "src/TaskManager.API/TaskManager.API.csproj"
+RUN dotnet restore "backend/src/TaskManager.API/TaskManager.API.csproj"
 
 # کپی همه فایل‌ها
 COPY . .
 
 # Build
-WORKDIR "/src/src/TaskManager.API"
+WORKDIR "/src/backend/src/TaskManager.API"
 RUN dotnet build "TaskManager.API.csproj" -c Release -o /app/build
 
 # ─── Stage 2: Publish ─────────────────────────────────────────

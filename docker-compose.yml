@@ -27,7 +27,7 @@ services:
   api:
     build:
       context: .
-      dockerfile: src/TaskManager.API/Dockerfile
+      dockerfile: backend/src/TaskManager.API/Dockerfile
     container_name: taskmanager-api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development

@@ -25,13 +25,13 @@ with:
 dotnet-version: '10.0.x'
 
     - name: Restore packages
-run: dotnet restore
+run: dotnet restore backend/TaskManager.sln
 
     - name: Build
-run: dotnet build --no-restore --configuration Release
+run: dotnet build backend/TaskManager.sln --no-restore --configuration Release
 
     - name: Run tests
-run: dotnet test --no-build --configuration Release --verbosity normal --logger "trx;LogFileName=test-results.trx"
+run: dotnet test backend/TaskManager.sln --no-build --configuration Release --verbosity normal
 
     - name: Upload test results
 uses: actions/upload-artifact@v4
@@ -51,7 +51,7 @@ steps:
 uses: actions/checkout@v4
 
     - name: Build Docker image
-run: docker build -f src/TaskManager.API/Dockerfile -t taskmanager-api:${{ github.sha }} .
+run: docker build -f backend/src/TaskManager.API/Dockerfile -t taskmanager-api:${{ github.sha }} .
 
 - name: Verify image exists
 run: docker images taskmanager-api
